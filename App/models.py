@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 
 class User(models.Model):
-    name = models.CharField(default='',max_length=40)
-    pwd = models.CharField(default='',max_length=100)
+    name = models.CharField(blank=False,null=False,max_length=40)
+    pwd = models.CharField(blank=False,null=False,max_length=100)
     score = models.IntegerField(default=0)
 
 class Game(models.Model): #For any game, not implemented rn
