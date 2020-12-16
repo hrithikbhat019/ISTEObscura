@@ -1,11 +1,27 @@
 from django.shortcuts import render
+from .models import *
+from django.contrib import messages
+from datetime import datetime
 # Create your views here.
 
 def loginPage(request):
     return render(request, "login.html", {})
 
 def registerPage(request):
-    return render(request, "register.html", {})
+    if request.method=='GET':
+        return render(request, "register.html", {})
+    else:
+        name = request.POST.get('name').strip()
+        pwd = request.POST.get('pwd').strip()
+        obj = User.objects.filter(name=name,pwd=pwd)
+        if len(obj)==1:
+            messages.error(request,'User already exists!')
+            return render(request,'login.html',{})
+        else:
+            obj = User.objects.create(name=name, pwd=pwd)
+            obj.save()
+            return render(request,'login.html', {})
+
 
 def homePage(request):
     return render(request, "home.html", {})
