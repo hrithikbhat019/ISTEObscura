@@ -4,6 +4,12 @@ from django.contrib import messages
 from datetime import datetime
 # Create your views here.
 
+def coverPage(request):
+    return render(request, "cover.html", {})
+
+def galleryPage(request):
+    return render(request, "gallery.html", {})
+
 def loginPage(request):
     msg = request.session.get('msg', '')
     if( msg ) : del(request.session['msg'])

@@ -19,6 +19,7 @@ from App.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', coverPage, name = 'Cover'),
     path('login/', loginPage, name = 'Login'),
     path('register/', registerPage, name = 'Register'),
     path('home/', homePage,name = 'Home'),
@@ -27,5 +28,6 @@ urlpatterns = [
     path('pianotiles/', pianotiles, name = 'PianoTiles'),
     path('twotho/', twotho,name = 'TwoTho'),
     path('typing/', typing,name = 'Typing'),
-    path('question/', question, name = 'Question')
+    path('question/', question, name = 'Question'),
+    path('gallery/', galleryPage, name = 'Gallery'),
 ]
