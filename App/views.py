@@ -15,6 +15,10 @@ def registerPage(request):
     else:
         name = request.POST.get('name').strip()
         pwd = request.POST.get('pwd').strip()
+        if name == '' or name == None:
+            return render(request, "register.html", {'msg':'Username empty not allowed.'})
+        elif pwd == '' or pwd == None:
+            return render(request, "register.html", {'msg':'Password empty not allowed.'})
         obj = User.objects.filter(name=name,pwd=pwd)
         if len(obj)==1:
             messages.error(request,'User already exists!')
