@@ -27,4 +27,5 @@ urlpatterns = [
     path('pianotiles/', pianotiles, name = 'PianoTiles'),
     path('twotho/', twotho,name = 'TwoTho'),
     path('typing/', typing,name = 'Typing'),
+    path('question/', question, name = 'Question')
 ]
