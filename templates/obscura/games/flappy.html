@@ -1,3 +1,10 @@
 <h1>
     Flappy bird
 </h1>
+
+<h2>Leaderboard</h2>
+<ol>
+{% for i in lb%}
+<li>{{i.name.name}} - {{i.score}}</li>
+{% endfor %}
+</ol>

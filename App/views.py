@@ -40,7 +40,7 @@ def loginPage(request):
 def logout(request):
     if 'user' in request.session:
         request.session.pop('user')
-        return redirect('Login')
+    return redirect('Login')
 
 
 @only_for_unauthenticated
@@ -63,7 +63,7 @@ def registerPage(request):
             obj.save()
             createObjects(obj)
             messages.success(request,"Registered Successfully!")
-            print('user created!')
+            #print('user created!')
             return redirect('Login')
 
 @user_log_in_required
@@ -71,36 +71,50 @@ def homePage(request):
     return render(request, "obscura/home.html", {})
 
 @user_log_in_required
+
 def question(request):
     return render(request, "obscura/question.html", {})
 
-@user_log_in_required
+@user_log_in_required 
 def brickbreaker(request):
-    return render(request,"obscura/games/brickbreaker.html", {})
+    if request.method == 'GET':
+        obj = lboardGames(1)
+        return render(request,"obscura/games/brickbreaker.html", {'lb':obj})
 
 @user_log_in_required
 def flappy(request):
-    return render(request, "obscura/games/flappy.html",{})
+    if request.method == 'GET':
+        obj = lboardGames(2)
+        return render(request, "obscura/games/flappy.html",{'lb':obj})
 
 @user_log_in_required
 def pianotiles(request):
-    return render(request, "obscura/games/pianotiles.html", {})
+    if request.method == 'GET':
+        obj = lboardGames(3)
+        return render(request, "obscura/games/pianotiles.html", {'lb':obj})
 
 @user_log_in_required
 def twotho(request):
-    return render(request, "obscura/games/twotho.html", {})
+    if request.method == 'GET':
+        obj = lboardGames(4)
+        return render(request, "obscura/games/twotho.html", {'lb':obj})
 
 @user_log_in_required
 def typing(request):
-    return render(request, "obscura/games/typing.html", {})
+    if request.method == 'GET':
+        obj = lboardGames(5)
+        print(obj)
+        return render(request, "obscura/games/typing.html", {'lb':obj})
 
 
+#Extra functions
 def createObjects(obj):
     for i in range(1, 6):
         objGame = Game.objects.create(name=obj, gameId=i)
         objGame.save()
     for i in range(1,7):
         objGame = Node.objects.create(name=obj, nodeNumber=i)
+        objGame.save()
 
 
 def registrationPage(request):
@@ -117,3 +131,10 @@ def registrationPage(request):
 
     context = {'form' : form }
     return render(request, "obscura/register.html", context)
+        
+
+
+#leaderboard for games
+def lboardGames(id):
+    obj = Game.objects.filter(gameId=id).order_by('-score','name')[:6]
+    return obj

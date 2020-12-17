@@ -30,4 +30,5 @@ urlpatterns = [
     path('typing/', typing,name = 'Typing'),
     path('question/', question, name = 'Question'),
     path('gallery/', galleryPage, name = 'Gallery'),
+    path('logout/',logout,name='Logout')
 ]
