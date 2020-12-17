@@ -1,3 +1,10 @@
 <h1>
     Brick breaker game
 </h1>
+
+<h2>Leaderboard</h2>
+<ol>
+{% for i in lb%}
+<li>{{i.name.name}} - {{i.score}}</li>
+{% endfor %}
+</ol>

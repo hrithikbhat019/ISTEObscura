@@ -41,29 +41,29 @@ def question(request):
 #Games 
 def brickbreaker(request):
     if request.method == 'GET':
-        obj = Game.objects.filter(gameId=1)
-        return render(request,"games/brickbreaker.html", {})
+        obj = lboardGames(1)
+        return render(request,"games/brickbreaker.html", {'lb':obj})
 
 def flappy(request):
     if request.method == 'GET':
-        obj = Game.objects.filter(gameId=2)
-        return render(request, "games/flappy.html",{})
+        obj = lboardGames(2)
+        return render(request, "games/flappy.html",{'lb':obj})
 
 def pianotiles(request):
     if request.method == 'GET':
-        obj = Game.objects.filter(gameId=3)
-        return render(request, "games/pianotiles.html", {})
+        obj = lboardGames(3)
+        return render(request, "games/pianotiles.html", {'lb':obj})
 
 def twotho(request):
     if request.method == 'GET':
-        obj = Game.objects.filter(gameId=4)
-        return render(request, "games/twotho.html", {})
+        obj = lboardGames(4)
+        return render(request, "games/twotho.html", {'lb':obj})
 
 def typing(request):
     if request.method == 'GET':
-        obj = Game.objects.filter(gameId=5)
+        obj = lboardGames(5)
         print(obj)
-        return render(request, "games/typing.html", {})
+        return render(request, "games/typing.html", {'lb':obj})
 
 
 #Extra functions
@@ -74,3 +74,9 @@ def createObjects(obj):
     for i in range(1,7):
         objGame = Node.objects.create(name=obj, nodeNumber=i)
         objGame.save()
+
+
+#leaderboard for games
+def lboardGames(id):
+    obj = Game.objects.filter(gameId=id).order_by('-score','name')[:6]
+    return obj
