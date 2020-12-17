@@ -7,10 +7,11 @@ from .forms import CreateUserForm
 
 from .decorators import user_log_in_required,only_for_unauthenticated
 # Create your views here.
-
+@only_for_unauthenticated
 def coverPage(request):
     return render(request, "obscura/cover.html", {})
 
+@user_log_in_required
 def galleryPage(request):
     return render(request, "obscura/gallery.html", {})
 
