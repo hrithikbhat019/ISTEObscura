@@ -4,6 +4,7 @@ from django.contrib import messages
 from datetime import datetime
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
+from random import randint
 
 from .decorators import user_log_in_required,only_for_unauthenticated
 # Create your views here.
@@ -77,8 +78,20 @@ def leaderboardPage(request):
     return render(request, "obscura/leaderboard.html", {'lb':obj})
 
 @user_log_in_required
-def question(request):
-    return render(request, "obscura/question.html", {})
+def question(request, diff, node):
+    context = {
+        'question':'This is a question with options',
+        'retry':0
+    }
+    if request.method == 'GET':
+        questions = Question.objects.filter(difficulty = diff)
+        numberOfQuestions = questions.count()
+        randomIndex = randint(1,numberOfQuestions)
+        context['question'] = questions[randomIndex - 1].quest
+        request.session['diff'] = diff
+        request.session['randomIndex'] = randomIndex - 1
+
+    return render(request, "obscura/question.html", context)
 
 @user_log_in_required 
 def brickbreaker(request):
