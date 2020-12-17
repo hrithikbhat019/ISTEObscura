@@ -22,7 +22,7 @@ def loginPage(request):
         pwd = request.POST.get('pwd').strip()
 
         obj = User.objects.filter(name=username,pwd=pwd)
-        print(obj[0])
+        #print(obj[0])
         if(len(obj)==1):
             request.session['user'] = username
             return redirect('Home')
@@ -72,15 +72,34 @@ def homePage(request):
     return render(request, "obscura/home.html", {})
 
 @user_log_in_required
+def leaderboardPage(request):
+    obj = lboard()
+    return render(request, "obscura/leaderboard.html", {'lb':obj})
 
+@user_log_in_required
 def question(request):
     return render(request, "obscura/question.html", {})
 
 @user_log_in_required 
 def brickbreaker(request):
+    objLBoard = lboardGames(1)
     if request.method == 'GET':
-        obj = lboardGames(1)
-        return render(request,"obscura/games/brickbreaker.html", {'lb':obj})
+        return render(request,"obscura/games/brickbreaker.html", {'lb':objLBoard})
+    else:
+        retryPost = int(request.POST.get('retry').strip())
+        scorePost = int(request.POST.get('score').strip())
+        name = request.session['user']
+        objUser = User.objects.get(name = name)
+        obj = Game.objects.get(name = objUser, gameId = 1)
+        if obj.score < scorePost:
+            objUser.score += scorePost - obj.score
+            objUser.save()
+            obj.score = scorePost
+            obj.save()
+        if retryPost:
+            return render(request,"obscura/games/brickbreaker.html", {'lb':objLBoard})
+        else:
+            return redirect('Home')
 
 @user_log_in_required
 def flappy(request):
@@ -138,4 +157,9 @@ def registrationPage(request):
 #leaderboard for games
 def lboardGames(id):
     obj = Game.objects.filter(gameId=id).order_by('-score','name')[:6]
+    return obj
+
+#leaderboard for entire users
+def lboard():
+    obj = User.objects.order_by('-score', 'name')[:6]
     return obj

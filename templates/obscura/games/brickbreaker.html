@@ -2,9 +2,23 @@
     Brick breaker game
 </h1>
 
+
+
+<form method="POST">
+    {%csrf_token%}
+    <label for="retry">Retry(0 - No, 1 - Yes)</label>
+    <input type="number" required name="retry"><br>
+    <label for="score">Score</label>
+    <input type="number" required name="score"><br><br>
+    <button type="submit">Submit</button><br>
+</form>
+{{msg}}
+
+
+
 <h2>Leaderboard</h2>
 <ol>
-{% for i in lb%}
-<li>{{i.name.name}} - {{i.score}}</li>
+{% for i in lb %}
+<li>{{i.name.name}}  {{i.score}}</li>
 {% endfor %}
 </ol>
