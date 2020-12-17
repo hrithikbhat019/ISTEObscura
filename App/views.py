@@ -34,28 +34,43 @@ def registerPage(request):
 def homePage(request):
     return render(request, "home.html", {})
 
+
 def question(request):
     return render(request, "question.html", {})
 
+#Games 
 def brickbreaker(request):
-    return render(request,"games/brickbreaker.html", {})
+    if request.method == 'GET':
+        obj = Game.objects.filter(gameId=1)
+        return render(request,"games/brickbreaker.html", {})
 
 def flappy(request):
-    return render(request, "games/flappy.html",{})
+    if request.method == 'GET':
+        obj = Game.objects.filter(gameId=2)
+        return render(request, "games/flappy.html",{})
 
 def pianotiles(request):
-    return render(request, "games/pianotiles.html", {})
+    if request.method == 'GET':
+        obj = Game.objects.filter(gameId=3)
+        return render(request, "games/pianotiles.html", {})
 
 def twotho(request):
-    return render(request, "games/twotho.html", {})
+    if request.method == 'GET':
+        obj = Game.objects.filter(gameId=4)
+        return render(request, "games/twotho.html", {})
 
 def typing(request):
-    return render(request, "games/typing.html", {})
+    if request.method == 'GET':
+        obj = Game.objects.filter(gameId=5)
+        print(obj)
+        return render(request, "games/typing.html", {})
 
 
+#Extra functions
 def createObjects(obj):
     for i in range(1, 6):
         objGame = Game.objects.create(name=obj, gameId=i)
         objGame.save()
     for i in range(1,7):
         objGame = Node.objects.create(name=obj, nodeNumber=i)
+        objGame.save()
