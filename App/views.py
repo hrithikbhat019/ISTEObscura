@@ -28,8 +28,8 @@ def registerPage(request):
         else:
             obj = User.objects.create(name=name, pwd=pwd)
             obj.save()
+            createObjects(obj)
             return redirect('/login/')
-
 
 def homePage(request):
     return render(request, "home.html", {})
@@ -51,3 +51,11 @@ def twotho(request):
 
 def typing(request):
     return render(request, "games/typing.html", {})
+
+
+def createObjects(obj):
+    for i in range(1, 6):
+        objGame = Game.objects.create(name=obj, gameId=i)
+        objGame.save()
+    for i in range(1,7):
+        objGame = Node.objects.create(name=obj, nodeNumber=i)

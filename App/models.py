@@ -22,7 +22,7 @@ class Question(models.Model):
 
 class Node(models.Model):
     name = models.ForeignKey(User, null = False, default = '',on_delete = models.SET_DEFAULT)
-    choice = [(1,1),(2,2),(3,3),(4,4),(5,5)]
+    choice = [(1,'MbandP'),(2,'Nan'),(3,'FnH'),(4,'HCC'),(5,'SJA'),(6,'LHCC')]
     nodeNumber = models.CharField(max_length=15, choices = choice, default = 1)
     score = models.IntegerField(default=0)
     visited = models.BooleanField(default=False)
