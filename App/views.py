@@ -8,6 +8,13 @@ from random import randint
 
 from .decorators import user_log_in_required,only_for_unauthenticated
 # Create your views here.
+
+def initialPage(request):
+    return render(request, "obscura/initial.html", {})
+    
+def instructionPage(request):
+    return render(request, "obscura/instructions.html", {})
+
 @only_for_unauthenticated
 def coverPage(request):
     return render(request, "obscura/cover.html", {})

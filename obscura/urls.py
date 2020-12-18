@@ -16,10 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from App.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', coverPage, name = 'Cover'),
+    path('',initialPage, name = 'Initial'),
+    path('cover/', coverPage, name = 'Cover'),
     path('login/', loginPage, name = 'Login'),
     path('register/', registerPage, name = 'Register'),
     path('home/', homePage,name = 'Home'),
@@ -31,5 +34,6 @@ urlpatterns = [
     path('question/<diff>/<node>', question, name = 'Question'),
     path('gallery/', galleryPage, name = 'Gallery'),
     path('logout/',logout,name='Logout'),
-    path('leaderboard/', leaderboardPage, name='LeaderBoard')
-]
+    path('leaderboard/', leaderboardPage, name='LeaderBoard'),
+    path('instructions/', instructionPage, name = 'Instructions')
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

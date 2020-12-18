@@ -1,0 +1,30 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static '/css/pacman.css' %}"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    </head>
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <div class="pac">
+            <div class="pacman">
+                <div class="pacman-top"></div>
+                <div class="pacman-bottom"></div>
+                <div class="feed"></div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <p>
+            Hola Freshers!
+            <br>
+            <br>
+            <br>
+            <a class="waves-effect waves-light btn-large yellow center" href="{% url 'Cover' %}" style="color: black">Click to Set foot in NITK</a>
+        </p>
+
+        
+    </body>
+</html>
