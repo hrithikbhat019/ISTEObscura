@@ -7,9 +7,6 @@ html{
 p{
   color:#FFF;
   font: 50px 'Press Start 2P',  cursive;
-  position:absolute;
-  text-align:center;
-  left: 30%;
 }
 .pac{
     border-bottom:solid 5px black;

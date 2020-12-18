@@ -5,9 +5,23 @@
     <head>
         <link rel="stylesheet" type="text/css" href="{% static '/css/pacman.css' %}"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
+        <script src="https://kit.fontawesome.com/0a3d56d8b5.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+        <div class="navbar" style="padding: 2vh;">
+            <nav class="transparent z-depth-0">
+                <a class="brand-logo center">
+                    <img width="75" src="{% static '/images/logobng.png' %}">
+                </a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="https://iste.nitk.ac.in/">About Us</a></li>
+                </ul>
+    
+            </nav>
+        </div>
         <div class="pac">
             <div class="pacman">
                 <div class="pacman-top"></div>
@@ -17,14 +31,33 @@
         </div>
         <br>
         <br>
-        <p>
-            Hola Freshers!
+        <p class="center">
+            Hello Freshers!
             <br>
             <br>
             <br>
             <a class="waves-effect waves-light btn-large yellow center" href="{% url 'Cover' %}" style="color: black">Click to Set foot in NITK</a>
         </p>
+        <footer style="padding: 2vh;">
+            <div class="row center" >
 
-        
+                <a href='https://www.facebook.com/istenitk/' target="_blank" style="padding: 1vh;">
+                    <i class="center fa fa-facebook-square fa-2x white-text"></i>
+                </a>
+                <a href='https://www.instagram.com/istenitk/' target="_blank" style="padding: 1vh;">
+                    <i class="center fa fa-instagram fa-2x white-text"></i>
+                </a>
+                <a href='https://www.youtube.com/c/istenitk' target="_blank" style="padding: 1vh;">
+                    <i class="center fa fa-youtube-play fa-2x white-text"></i>
+                </a>
+                <a href='https://www.linkedin.com/company/indian-society-for-technical-education-nitk-chapter/?originalSubdomain=in'
+                    target="_blank" style="padding: 1vh;">
+                    <i class="center fa fa-linkedin fa-2x white-text"></i>
+                </a>
+            </div>
+            <div class="center white-text">
+                Made with ❤️ by ISTE Crypt
+            </div>
+        </footer>
     </body>
 </html>

@@ -8,7 +8,7 @@ from random import randint
 
 from .decorators import user_log_in_required,only_for_unauthenticated
 # Create your views here.
-
+@only_for_unauthenticated
 def initialPage(request):
     return render(request, "obscura/initial.html", {})
     
@@ -77,7 +77,17 @@ def registerPage(request):
 
 @user_log_in_required
 def homePage(request):
-    return render(request, "obscura/home.html", {})
+    nameSession = request.session['user']
+    obj = User.objects.get(name = nameSession)
+    objNodes = Node.objects.filter(name = obj)
+    listVisited = {}
+    listScore = {}
+    for i in objNodes:
+        if i.visited:
+            listVisited[int(i.nodeNumber)] = True 
+        if i.score > 0:
+            listScore[int(i.nodeNumber)] = True
+    return render(request, "obscura/home.html", {'obj':obj, 'node':listVisited, 'score':listScore})
 
 @user_log_in_required
 def leaderboardPage(request):

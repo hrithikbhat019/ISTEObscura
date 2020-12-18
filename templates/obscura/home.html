@@ -1,4 +1,60 @@
-<h1>
-    Home Page
-</h1>
-<a href="{% url 'Question' diff=1 node=1 %}"><button>Question</button></a>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obscura-Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+</head>
+<body>
+    <div id="bg">
+        <img src="{% static '/images/Home.png'%}" alt="">
+    </div>
+    <div class="navbar navbarCSS" style="background-color: rgba(0, 0, 0, 0.8);position: fixed;top: 0%;left: 0%;width: 100vw;">
+        <nav class="transparent z-depth-0">
+            <a class="left" style="padding-left: 1vw;">
+                <h5>{{obj.name}}</h5>
+            </a>
+            <a class="brand-logo center">
+                <img width="75" src="{% static '/images/logobng.png' %}">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="https://iste.nitk.ac.in/">About Us</a></li>
+            </ul>
+
+        </nav>
+    </div>
+    <div class="center white-text" style="background-color: rgba(0, 0, 0, 0.8);position: fixed;top:9.5%;left: 0%;width: 10vw;padding:1vh;">
+    <h6>Current Score</h6>  <h5 style="color: blanchedalmond;">{{obj.score}}</h5>
+    </div>
+
+    <!--ions-->
+    <a href="{% url 'Question' diff=1 node=1 %}"><button title="Main Building" class="btn-floating {% if node.1 and score.1 %} completed {% elif node.1 %} visited pulse {% else %} not-visited pulse {% endif %}btn-large mainbldg "><i class="fa fa-flag-checkered" aria-hidden="true"></i></button></a>
+    <a href="{% url 'Question' diff=1 node=5 %}">    <button title="SJA" class="btn-floating {% if node.5 and score.5 %} completed {% elif node.5 %} visited pulse  {% else %} not-visited pulse  {% endif %} btn-large sja "><i class="fa fa-flag-checkered" aria-hidden="true"></i></button></a>
+    <a href="{% url 'Question' diff=1 node=2 %}"><button title="Nandini" class="btn-floating {% if node.2 and score.2 %} completed {% elif node.2 %} visited pulse {% else %} not-visited pulse {% endif %} btn-large nandini"><i class="fa fa-flag-checkered" aria-hidden="true"></i></button></a>
+    <a href="{% url 'Question' diff=1 node=3 %}">    <button title="Fresh and Honest" class="btn-floating {% if node.3 and score.3 %} completed {% elif node.3 %} visited pulse {% else %} not-visited pulse {% endif %} btn-large fnh"><i class="fa fa-flag-checkered" aria-hidden="true"></i></button></a>
+    <a href="{% url 'Question' diff=1 node=4 %}">    <button title="HCC" class="btn-floating {% if node.4 and score.4 %} completed {% elif node.4 %} visited pulse {% else %} not-visited pulse {% endif %} btn-large hcc"><i class="fa fa-flag-checkered" aria-hidden="true"></i></button>    </a>
+    <a href="{% url 'Question' diff=1 node=6 %}">    <button title="LHC-C" class="btn-floating {% if node.6 and score.6 %} completed {% elif node.6 %} visited pulse {% else %} not-visited pulse {% endif %} btn-large lhcc"><i class="fa fa-flag-checkered" aria-hidden="true"></i></button>    </a>
+
+    <!--Games-->
+    <a href="{% url 'BrickBreaker' %}">    <button title="Sports-Complex" class="btn-floating game btn-large sports pulse"><i class="fas fa-gamepad" aria-hidden="true"></i></button>    </a>
+    <a href="{% url 'Flappy' %}">    <button title="NITK Beach" class="btn-floating game btn-large beach pulse"><i class="fas fa-gamepad" aria-hidden="true"></i></button>    </a>
+    <a href="{% url 'PianoTiles' %}">    <button title="SAC" class="btn-floating game btn-large sac pulse"><i class="fas fa-gamepad" aria-hidden="true"></i></button>    </a>
+    <a href="{% url 'TwoTho' %}">    <button title="LHC-B" class="btn-floating game btn-large pulse lhcb"><i class="fas fa-gamepad" aria-hidden="true"></i></button>    </a>
+    <a href="{% url 'Typing' %}">    <button title="Library" class="btn-floating game btn-large pulse lib pulse"><i class="fas fa-gamepad" aria-hidden="true"></i></button>    </a>
+
+    <!--Options menu-->
+    <div class="white-text center" style="position: fixed;top: 95%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Logout</div>
+    <div class="white-text center" style="position: fixed;top: 89.5%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Leaderboard</div>
+    <div class="white-text center" style="position: fixed;top: 84%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Instructions</div>
+    <div class="white-text center" style="position: fixed;top: 78.5%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Gallery</div>
+
+
+    
+
+    <script src="https://use.fontawesome.com/a6a3445b13.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</body>
+</html>

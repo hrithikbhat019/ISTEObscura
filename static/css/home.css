@@ -1,0 +1,124 @@
+#bg{
+    position: fixed;
+     top: -50%; 
+    left: -50%; 
+    width: 200%; 
+    height: 200%;
+}
+
+#bg img {
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  bottom: 0; 
+  margin: auto; 
+  min-width: 50%;
+  min-height: 50%;
+}
+
+
+.not-visited{
+    background-color:#b71c1c !important;
+}
+
+.visited{
+    background-color:#ffeb3b !important;
+}
+
+.completed{
+    background-color:#1b5e20 !important ;
+}
+
+
+
+.game{
+    background-color: #0d47a1  ;
+}
+
+.game:hover{
+    background-color: #0d47a1  ;
+}
+
+.quest{
+    background-color: #b71c1c  ;
+}
+
+.quest:hover{
+    background-color: #b71c1c  ;
+}
+
+
+/*for position*/
+
+.beach{
+    position: fixed;
+    top: 50%;
+    left:10%
+}
+
+.sports{
+    position: fixed;
+    top:68%;
+    left:94%;
+}
+
+.sac{
+    position: fixed;
+    top:90%;
+    left: 76%;
+}
+
+.hcc{
+    position: fixed;
+    top:76%;
+    left: 82%;
+}
+
+.lhcb{
+    position: fixed;
+    top:76%;
+    left: 65%;
+}
+.sac{
+    position: fixed;
+    top:53%;
+    left: 78%;
+}
+.mainbldg{
+    position: fixed;
+    top:45%;
+    left: 64%;
+}
+
+.nandini{
+    position: fixed;
+    top:11%;
+    left:80%;
+}
+
+.lhcc{
+    position: fixed;
+    top:54%;
+    left: 44%;
+}
+
+.fnh{
+    position: fixed;
+    top:40%;
+    left:78%;
+}
+
+.sja{
+    position: fixed;
+    top:90%;
+    left:76%;
+}
+
+.lib{
+    position: fixed;
+    top:62%;
+    left:68%
+}
+
+
