@@ -46,11 +46,10 @@
     <a href="{% url 'Typing' %}">    <button title="Library" class="btn-floating game btn-large pulse lib pulse"><i class="fas fa-gamepad" aria-hidden="true"></i></button>    </a>
 
     <!--Options menu-->
-    <div class="white-text center" style="position: fixed;top: 95%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Logout</div>
-    <div class="white-text center" style="position: fixed;top: 89.5%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Leaderboard</div>
-    <div class="white-text center" style="position: fixed;top: 84%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Instructions</div>
-    <div class="white-text center" style="position: fixed;top: 78.5%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Gallery</div>
-
+    <a href="{% url 'Logout' %}">    <div class="white-text center" style="position: fixed;top: 95%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Logout</div>    </a>
+    <a href="{% url 'LeaderBoard' %}">    <div class="white-text center" style="position: fixed;top: 89.5%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Leaderboard</div>    </a>
+    <a href="{% url 'Instructions' %}">    <div class="white-text center" style="position: fixed;top: 84%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Instructions</div>    </a>
+    <a href="{% url 'Gallery' %}">    <div class="white-text center" style="position: fixed;top: 78.5%;left:0%;background-color: rgba(0, 0, 0, 0.8);width: 10vw;padding: 1vh;">Gallery</div>    </a>
 
     
 
