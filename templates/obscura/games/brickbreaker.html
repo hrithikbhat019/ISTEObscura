@@ -1,24 +1,83 @@
-<h1>
-    Brick breaker game
-</h1>
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cover.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+    <script src="https://kit.fontawesome.com/0a3d56d8b5.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <div class="navbar">
+        <nav class="transparent z-depth-0">
+            <a class="brand-logo center">
+                <img width="75" src="{% static '/images/logobng.png' %}">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="https://iste.nitk.ac.in/">About Us</a></li>
+            </ul>
+
+        </nav>
+    </div>
+
+
+    <h2 class="center">
+        Brick breaker
+    </h2>
+    <div style="display: inline-block;">
+        <div style="width: 18vw;float: left;background-color: grey;height: 80vh;">Hi</div>
+        <div style="width: 60vw;float: left;background-color: blanchedalmond;height: 80vh;">Hi</div>
+        <div style="width: 20vw;float: right;;background-color: grey;height: 80vh;">
+            <h4>Leaderboard</h4>
+            <ol>
+                {% for i in lb %}
+                <li>{{i.name.name}} - {{i.score}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+
+
+    <form method="POST">
+        {%csrf_token%}
+        <label for="retry">Retry(0 - No, 1 - Yes)</label>
+        <input type="number" required name="retry"><br>
+        <label for="score">Score</label>
+        <input type="number" required name="score"><br><br>
+        <button type="submit">Submit</button><br>
+    </form>
+    {{msg}}
 
 
 
-<form method="POST">
-    {%csrf_token%}
-    <label for="retry">Retry(0 - No, 1 - Yes)</label>
-    <input type="number" required name="retry"><br>
-    <label for="score">Score</label>
-    <input type="number" required name="score"><br><br>
-    <button type="submit">Submit</button><br>
-</form>
-{{msg}}
 
+    <footer>
+        <div class="row center">
 
+            <a href='https://www.facebook.com/istenitk/' target="_blank">
+                <i class="center fa fa-facebook-square fa-2x white-text"></i>
+            </a>
+            <a href='https://www.instagram.com/istenitk/' target="_blank">
+                <i class="center fa fa-instagram fa-2x white-text"></i>
+            </a>
+            <a href='https://www.youtube.com/c/istenitk' target="_blank">
+                <i class="center fa fa-youtube-play fa-2x white-text"></i>
+            </a>
+            <a href='https://www.linkedin.com/company/indian-society-for-technical-education-nitk-chapter/?originalSubdomain=in'
+                target="_blank">
+                <i class="center fa fa-linkedin fa-2x white-text"></i>
+            </a>
+        </div>
+        <div class="center">
+            Made with ❤️ by ISTE Crypt
+        </div>
+    </footer>
 
-<h2>Leaderboard</h2>
-<ol>
-{% for i in lb %}
-<li>{{i.name.name}}  {{i.score}}</li>
-{% endfor %}
-</ol>
+</body>
+
+</html>
