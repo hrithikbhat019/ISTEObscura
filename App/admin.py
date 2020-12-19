@@ -10,7 +10,7 @@ class GameAdmin(admin.ModelAdmin):
     list_filter = ('gameId',)
     
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('quest', 'ans', 'difficulty')
+    list_display = ('quest', 'difficulty', 'ans', 'op1', 'op2', 'op3', 'op4')
     
 class NodeAdmin(admin.ModelAdmin):
     list_display = ('name', 'nodeNumber', 'score', 'visited')

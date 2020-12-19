@@ -89,7 +89,7 @@ def homePage(request):
             listScore[int(i.nodeNumber)] = True
     return render(request, "obscura/home.html", {'obj':obj, 'node':listVisited, 'score':listScore})
 
-@user_log_in_required
+
 def leaderboardPage(request):
     obj = lboard()
     return render(request, "obscura/leaderboard.html", {'lb':obj})
@@ -98,6 +98,10 @@ def leaderboardPage(request):
 def question(request, diff, node):
     context = {
         'question':'This is a question with options',
+        'op1':'',
+        'op2':'',
+        'op3':'',
+        'op4':''
     }
     nameUser = request.session['user']
     objUser = User.objects.get(name = nameUser)
@@ -109,6 +113,10 @@ def question(request, diff, node):
         numberOfQuestions = questions.count()
         randomIndex = randint(1,numberOfQuestions)
         context['question'] = questions[randomIndex - 1].quest
+        context['op1'] = questions[randomIndex - 1].op1
+        context['op2'] = questions[randomIndex - 1].op2
+        context['op3'] = questions[randomIndex - 1].op3
+        context['op4'] = questions[randomIndex - 1].op4
         request.session['question'] = context['question']
         request.session['ans'] = questions[randomIndex - 1].ans
         #print(request.session['question'],request.session['ans'])
@@ -121,8 +129,11 @@ def question(request, diff, node):
         #print(ansAct,ansPost)
         request.session.pop('question')
         request.session.pop('ans')
-        if int(ansAct) == int(ansPost):
+        if int(ansAct) == int(ansPost) and objNode == 0:
             context['msg'] = 'You have answered the question correctly! Go back to Home to solve more!'
+            flag = 0
+            if objNode.score == 0:
+                flag = 1
             if int(diff) == 1:
                 objNode.score = 50
             elif int(diff) == 2:
@@ -130,6 +141,8 @@ def question(request, diff, node):
             elif int(diff) == 3:
                 objNode.score = 150
             objNode.save()
+            objUser.score += objNode.score
+            objUser.save()
         else:
             context['msg'] = 'You have answered the question wrong! Come back later and try again!' 
 

@@ -15,10 +15,12 @@ class Game(models.Model): #For any game, not implemented rn
 
 class Question(models.Model):
     quest = models.TextField()
-    choice = [('1','A'), ('2', 'B'), ('3', 'C'), ('4', 'D')]
+    op1, op2, op3, op4 = models.TextField(default=''), models.TextField(default=''), models.TextField(default=''), models.TextField(default='')
+    choice = [('1','1'), ('2', '2'), ('3', '3'), ('4', '4')]
     ans = models.CharField(max_length = 1, choices = choice, default = 1)
     diff = [('1','Easy'), ('2','Medium'), ('3', 'Hard')]
     difficulty = models.CharField(max_length=1, choices = diff, default = 1)
+    
 
 class Node(models.Model):
     name = models.ForeignKey(User, null = False, default = '',on_delete = models.SET_DEFAULT)

@@ -15,6 +15,8 @@
 
     <div class="navbar">
         <nav class="transparent z-depth-0">
+            <a style="padding-left: 1%;" href="{% url 'Home' %}"><button
+                    class="waves-effect waves-light btn-large center deep-orange darken-4">Go back</button></a>
             <a class="brand-logo center">
                 <img width="75" src="{% static '/images/logobng.png' %}">
             </a>
@@ -29,8 +31,16 @@
         <h2 class="center">
             Question
         </h2><br>
-        {{question}}<br>
+        <div>
+            <h5>{{question}}</h5>
+        </div>
         {% if not answered %}
+        <h6><ol>
+            <li style="padding: 1vh;">{{op1}}</li>
+            <li style="padding: 1vh;">{{op2}}</li>
+            <li style="padding: 1vh;">{{op3}}</li>
+            <li style="padding: 1vh;">{{op4}}</li>
+        </ol></h6>
         <form class="col l2" method="POST">
             {% csrf_token %}
             <div class="row">
@@ -42,16 +52,17 @@
             <div class="center"><button type="submit"
                     class="waves-effect waves-light btn-large center deep-orange darken-4">Submit</button></div>
         </form>
-        <br><br>
+        <br>
         <h6 class="grey-text center">Enter the answer to the question in option numbers only(1, 2, 3, 4 are valid
             options) in the "Answer" field and submit.</h6>
         {% else %}
         <h6 class="grey-text center">{{msg}}</h6>
         <br><br>
-        <div class="center"><a href="{% url 'Home' %}" class="center"><button class="waves-effect waves-light btn-large center deep-orange darken-4">Go to Home</button></a></div>
+        <div class="center"><a href="{% url 'Home' %}" class="center"><button
+                    class="waves-effect waves-light btn-large center deep-orange darken-4">Go to Home</button></a></div>
         {% endif %}
     </div>
-
+    <br><br>
     <footer>
         <div class="row center">
 
