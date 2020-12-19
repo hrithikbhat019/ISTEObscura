@@ -98,15 +98,42 @@ def leaderboardPage(request):
 def question(request, diff, node):
     context = {
         'question':'This is a question with options',
-        'retry':0
     }
+    nameUser = request.session['user']
+    objUser = User.objects.get(name = nameUser)
+    objNode = Node.objects.get(name = objUser, nodeNumber = str(node))
+    objNode.visited = True
+    objNode.save()
     if request.method == 'GET':
-        questions = Question.objects.filter(difficulty = diff)
+        questions = Question.objects.filter(difficulty = str(diff))
         numberOfQuestions = questions.count()
         randomIndex = randint(1,numberOfQuestions)
         context['question'] = questions[randomIndex - 1].quest
-        request.session['diff'] = diff
-        request.session['randomIndex'] = randomIndex - 1
+        request.session['question'] = context['question']
+        request.session['ans'] = questions[randomIndex - 1].ans
+        #print(request.session['question'],request.session['ans'])
+    else:
+        #print(request.session['question'],request.session['ans'])
+        context['question'] = request.session['question']
+        context['answered'] = 1
+        ansAct = request.session['ans']
+        ansPost = request.POST.get('answer')
+        #print(ansAct,ansPost)
+        request.session.pop('question')
+        request.session.pop('ans')
+        if int(ansAct) == int(ansPost):
+            context['msg'] = 'You have answered the question correctly! Go back to Home to solve more!'
+            if int(diff) == 1:
+                objNode.score = 50
+            elif int(diff) == 2:
+                objNode.score = 100
+            elif int(diff) == 3:
+                objNode.score = 150
+            objNode.save()
+        else:
+            context['msg'] = 'You have answered the question wrong! Come back later and try again!' 
+
+
 
     return render(request, "obscura/question.html", context)
 
