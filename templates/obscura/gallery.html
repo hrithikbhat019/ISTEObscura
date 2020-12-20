@@ -1,3 +1,108 @@
-<h1>
-    Gallery
-</h1>
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cover.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <script src="https://kit.fontawesome.com/0a3d56d8b5.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <div class="navbar">
+        <nav class="transparent z-depth-0">
+            <a style="padding-left: 1%;" href="{% url 'Home' %}"><button
+                    class="waves-effect waves-light btn-large center deep-orange darken-4">Go back</button></a>
+            <a class="brand-logo center">
+                <img width="75" src="{% static '/images/logobng.png' %}">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="https://iste.nitk.ac.in/">About Us</a></li>
+            </ul>
+
+        </nav>
+    </div>
+
+    <div class="container">
+        <h2 class="center">Gallery</h2>
+
+        <div class="row">
+            <div class="col l4 center"><h5><a href="{% url 'GalleryView' nodeNumber=7 %}" class="grey-text">Sports Complex</a></h5></div>
+            <div class="col l4 center"><h5><a href="{% url 'GalleryView' nodeNumber=8 %}" class="grey-text">Beach</a></h5></div>
+            <div class="col l4 center"><h5><a href="{% url 'GalleryView' nodeNumber=9 %}" class="grey-text">SAC</a></h5></div>
+        </div>
+
+        <div class="row">
+            <div class="col l4 center"><h5><a href="{% url 'GalleryView' nodeNumber=10 %}" class="grey-text">LHC-B</a></h5></div>
+            <div class="col l4 center"><h5><a href="{% url 'GalleryView' nodeNumber=11 %}" class="grey-text">Library</a></h5></div>
+            <div class="col l4 center">
+                {% if node1 %}<h5><a href="{% url 'GalleryView' nodeNumber=1 %}" class="grey-text">Main building and Pavillion</a></h5>
+                {% else %}<h5 class="grey-text">Main building and Pavillion<i class="fa fa-lock" style="padding-left: 1vh;"></i></h5>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col l4 center">
+                {% if node2 %}<h5><a href="{% url 'GalleryView' nodeNumber=2 %}" class="grey-text">Nandini</a></h5>
+                {% else %}<h5 class="grey-text">Nandini<i class="fa fa-lock" style="padding-left: 1vh;"></i></h5>
+                {% endif %}
+            </div>            
+            <div class="col l4 center">
+                {% if node3 %}<h5><a href="{% url 'GalleryView' nodeNumber=3 %}" class="grey-text">FnH (Fresh and Honest)</a></h5>
+                {% else %}<h5 class="grey-text">FnH (Fresh and Honest)<i class="fa fa-lock" style="padding-left: 1vh;"></i></h5>
+                {% endif %}
+            </div>            
+            <div class="col l4 center">
+                {% if node4 %}<h5><a href="{% url 'GalleryView' nodeNumber=4 %}" class="grey-text">HCC</a></h5>
+                {% else %}<h5 class="grey-text">HCC<i class="fa fa-lock" style="padding-left: 1vh;"></i></h5>
+                {% endif %}
+            </div>        
+        </div>
+
+        <div class="row">
+            <div class="col l4 center">
+                {% if node5 %}<h5><a href="{% url 'GalleryView' nodeNumber=5 %}" class="grey-text">SJA</a></h5>
+                {% else %}<h5 class="grey-text">SJA<i class="fa fa-lock" style="padding-left: 1vh;"></i></h5>
+                {% endif %}
+            </div>            
+            <div class="col l4 center offset-l4">
+                {% if node6 %}<h5><a href="{% url 'GalleryView' nodeNumber=6 %}" class="grey-text">LHC-C</a></h5>
+                {% else %}<h5 class="grey-text">LHC-C<i class="fa fa-lock" style="padding-left: 1vh;"></i></h5>
+                {% endif %}
+            </div>                 
+        </div>
+    </div>
+
+
+    
+    <footer>
+        <div class="row center">
+
+            <a href='https://www.facebook.com/istenitk/' target="_blank">
+                <i class="center fa fa-facebook-square fa-2x white-text"></i>
+            </a>
+            <a href='https://www.instagram.com/istenitk/' target="_blank">
+                <i class="center fa fa-instagram fa-2x white-text"></i>
+            </a>
+            <a href='https://www.youtube.com/c/istenitk' target="_blank">
+                <i class="center fa fa-youtube-play fa-2x white-text"></i>
+            </a>
+            <a href='https://www.linkedin.com/company/indian-society-for-technical-education-nitk-chapter/?originalSubdomain=in'
+                target="_blank">
+                <i class="center fa fa-linkedin fa-2x white-text"></i>
+            </a>
+        </div>
+        <div class="center">
+            Made with ❤️ by ISTE Crypt
+        </div>
+    </footer>
+
+</body>
+
+</html>

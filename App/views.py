@@ -21,7 +21,43 @@ def coverPage(request):
 
 @user_log_in_required
 def galleryPage(request):
-    return render(request, "obscura/gallery.html", {})
+    context = {
+        'obj':''
+    }
+    name = request.session['user']
+    objUser = User.objects.get(name = name)
+    objNode = Node.objects.filter(name = objUser)
+    for i in objNode:
+        nodeName = 'node' + str(i.nodeNumber)
+        if i.score > 0:
+            context[nodeName] = '1'
+    return render(request, "obscura/gallery.html", context)
+
+@user_log_in_required
+def galleryView(request,nodeNumber):
+    nodeNumber = int(nodeNumber)
+    if nodeNumber == 1:
+        return render(request, 'obscura/galleryFolder/mandp.html')
+    elif nodeNumber == 2:
+        return render(request, 'obscura/galleryFolder/nand.html')
+    elif nodeNumber == 3:
+        return render(request, 'obscura/galleryFolder/fnh.html')
+    elif nodeNumber == 4:
+        return render(request, 'obscura/galleryFolder/hcc.html')
+    elif nodeNumber == 5:
+        return render(request, 'obscura/galleryFolder/sja.html')
+    elif nodeNumber == 6:
+        return render(request, 'obscura/galleryFolder/lhcc.html')
+    elif nodeNumber == 7:
+        return render(request, 'obscura/galleryFolder/sprtcmp.html')
+    elif nodeNumber == 8:
+        return render(request, 'obscura/galleryFolder/beach.html')
+    elif nodeNumber == 9:
+        return render(request, 'obscura/galleryFolder/sac.html')
+    elif nodeNumber == 10:
+        return render(request, 'obscura/galleryFolder/lhcb.html')
+    elif nodeNumber == 11:
+        return render(request, 'obscura/galleryFolder/library.html')
 
 @only_for_unauthenticated
 def loginPage(request):
