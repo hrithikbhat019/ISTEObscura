@@ -238,7 +238,7 @@ def createObjects(obj):
     for i in range(1, 6):
         objGame = Game.objects.create(name=obj, gameId=i)
         objGame.save()
-    for i in range(1,7):
+    for i in range(1,16):
         objGame = Node.objects.create(name=obj, nodeNumber=i)
         objGame.save()
 
