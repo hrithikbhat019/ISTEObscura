@@ -164,11 +164,11 @@ def question(request, diff, node):
         context['question'] = request.session['question']
         context['answered'] = 1
         ansAct = request.session['ans']
-        ansPost = request.POST.get('answer')
-        #print(ansAct,ansPost)
+        ansPost = request.POST.get('answer').strip()
+        print(ansAct,ansPost)
         request.session.pop('question')
         request.session.pop('ans')
-        if int(ansAct) == int(ansPost) and objNode == 0:
+        if int(ansAct) == int(ansPost) and objNode.score == 0:
             context['msg'] = 'You have answered the question correctly! Go back to Home to solve more!'
             flag = 0
             if objNode.score == 0:
@@ -302,7 +302,7 @@ def createObjects(obj):
     for i in range(1, 6):
         objGame = Game.objects.create(name=obj, gameId=i)
         objGame.save()
-    for i in range(1,7):
+    for i in range(1,16):
         objGame = Node.objects.create(name=obj, nodeNumber=i)
         objGame.save()
 

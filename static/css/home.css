@@ -121,4 +121,56 @@
     left:68%
 }
 
+.seven{
+    position: fixed;
+    top:10%;
+    left:53%;
+}
 
+.eight{
+    position: fixed;
+    top: 83%;
+    left: 53%;
+}
+
+.nine{
+    position: fixed;
+    top:10%;
+    left: 47%;
+}
+
+.fifteen{
+    position: fixed;
+    top: 9%;
+    left: 35%;
+}
+
+.eleven{
+    position: fixed;
+    top:35%;
+    left:45%
+}
+
+.twelve{
+    position: fixed;
+    top: 46%;
+    left: 52%;
+}
+
+.thirteen{
+    position: fixed;
+    top: 20%;
+    left: 60%;
+}
+
+.fourteen{
+    position: fixed;
+    top: 36%;
+    left: 94%;
+}
+
+.ten{
+    position: fixed;
+    top:30%;
+    left: 70%;
+}
