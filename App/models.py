@@ -30,3 +30,4 @@ class Node(models.Model):
     nodeNumber = models.CharField(max_length=2, choices = choice, default = 1)
     score = models.IntegerField(default=0)
     visited = models.BooleanField(default=False)
+    questIndex = models.IntegerField(default=-1)

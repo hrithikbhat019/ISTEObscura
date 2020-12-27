@@ -147,7 +147,12 @@ def question(request, diff, node):
     if request.method == 'GET':
         questions = Question.objects.filter(difficulty = str(diff))
         numberOfQuestions = questions.count()
-        randomIndex = randint(1,numberOfQuestions)
+        if objNode.questIndex == -1:
+            randomIndex = randint(1,numberOfQuestions)
+            objNode.questIndex = randomIndex
+            objNode.save()
+        else:
+            randomIndex = objNode.questIndex
         context['question'] = questions[randomIndex - 1].quest
         context['op1'] = questions[randomIndex - 1].op1
         context['op2'] = questions[randomIndex - 1].op2
