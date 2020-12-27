@@ -5,6 +5,9 @@ from datetime import datetime
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from random import randint
+from django.http import JsonResponse,HttpResponse
+
+
 
 from .decorators import user_log_in_required,only_for_unauthenticated
 # Create your views here.
@@ -190,9 +193,9 @@ def question(request, diff, node):
 def brickbreaker(request):
     objLBoard = lboardGames(1)
     if request.method == 'GET':
-        return render(request,"obscura/games/brickbreaker.html", {'lb':objLBoard})
-    else:
-        retryPost = int(request.POST.get('retry').strip())
+        return render(request,"obscura/games/br2.html", {'lb':objLBoard})
+    elif request.method == 'POST':
+        #+2 for each brick
         scorePost = int(request.POST.get('score').strip())
         name = request.session['user']
         objUser = User.objects.get(name = name)
@@ -202,36 +205,97 @@ def brickbreaker(request):
             objUser.save()
             obj.score = scorePost
             obj.save()
-        if retryPost:
-            return render(request,"obscura/games/brickbreaker.html", {'lb':objLBoard})
+            return HttpResponse(status = 201)
         else:
-            return redirect('Home')
+            return HttpResponse(status = 200)
 
 @user_log_in_required
 def flappy(request):
+    #3x score
     if request.method == 'GET':
         obj = lboardGames(2)
         return render(request, "obscura/games/flappy.html",{'lb':obj})
 
+    elif request.method == 'POST':
+        score = int(request.POST.get('score').strip())
+        normalised_score = 3*score
+        #print(score)
+        #print(request.POST)
+        name = request.session['user']
+        objUser = User.objects.get(name = name)
+        obj = Game.objects.get(name = objUser, gameId = 2)
+        if obj.score < normalised_score:
+            objUser.score += normalised_score - obj.score
+            objUser.save()
+            obj.score = normalised_score
+            obj.save()
+
+        obj = lboardGames(2)
+        return HttpResponse(status =201)
+
+
 @user_log_in_required
 def pianotiles(request):
+    # score as is
     if request.method == 'GET':
         obj = lboardGames(3)
         return render(request, "obscura/games/pianotiles.html", {'lb':obj})
+    elif request.method == 'POST':
+        scorePost = int(request.POST.get('score').strip())
+        #print(score)
+        #print(request.POST)
+        name = request.session['user']
+        objUser = User.objects.get(name = name)
+        obj = Game.objects.get(name = objUser, gameId = 3)
+        if obj.score < scorePost:
+            objUser.score += scorePost - obj.score
+            objUser.save()
+            obj.score = scorePost
+            obj.save()
+            return HttpResponse(status = 201)
 
 @user_log_in_required
 def twotho(request):
     if request.method == 'GET':
         obj = lboardGames(4)
         return render(request, "obscura/games/twotho.html", {'lb':obj})
+    elif request.method == 'POST':
+        score = int(request.POST.get('score').strip())
+        #print(score)
+        #print(request.POST)
+        name = request.session['user']
+        objUser = User.objects.get(name = name)
+        obj = Game.objects.get(name = objUser, gameId = 4)
+        if obj.score < scorePost:
+            objUser.score += scorePost - obj.score
+            objUser.save()
+            obj.score = scorePost
+            obj.save()
+            return HttpResponse(status = 201)
 
 @user_log_in_required
 def typing(request):
+    #score as is
     if request.method == 'GET':
         obj = lboardGames(5)
         print(obj)
         return render(request, "obscura/games/typing.html", {'lb':obj})
+    elif request.method == 'POST':
+        scorePost = int(request.POST.get('score').strip())
+        #print(score)
+        #print(request.POST)
+        name = request.session['user']
+        objUser = User.objects.get(name = name)
+        obj = Game.objects.get(name = objUser, gameId = 5)
+        if obj.score < scorePost:
+            objUser.score += scorePost - obj.score
+            objUser.save()
+            obj.score = scorePost
+            obj.save()
+            return HttpResponse(status = 201)
 
+def baseView(request):
+    return render(request,'base.html')
 
 #Extra functions
 def createObjects(obj):

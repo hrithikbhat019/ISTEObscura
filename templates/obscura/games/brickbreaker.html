@@ -28,32 +28,23 @@
         </nav>
     </div>
 
+    {%block game%}
+    {% endblock %}
 
-    <h2 class="center">
-        Brick breaker
-    </h2>
+
     <div style="display: inline-block;">
         <div style="width: 18vw;float: left;background-color: grey;height: 80vh;">Hi</div>
         <div style="width: 60vw;float: left;background-color: blanchedalmond;height: 80vh;">Hi</div>
         <div style="width: 20vw;float: right;;background-color: grey;height: 80vh;">
             <h4>Leaderboard</h4>
-            <ol>
+            <ul style="list-style: none;">
                 {% for i in lb %}
                 <li>{{i.name.name}} - {{i.score}}</li>
                 {% endfor %}
-            </ol>
+            </ul>
         </div>
     </div>
 
-
-    <form method="POST">
-        {%csrf_token%}
-        <label for="retry">Retry(0 - No, 1 - Yes)</label>
-        <input type="number" required name="retry"><br>
-        <label for="score">Score</label>
-        <input type="number" required name="score"><br><br>
-        <button type="submit">Submit</button><br>
-    </form>
     {{msg}}
 
 

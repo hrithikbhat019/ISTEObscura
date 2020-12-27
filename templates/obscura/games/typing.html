@@ -1,10 +1,68 @@
-<h1>
-    Typing
-</h1>
+{% load static %}
 
-<h2>Leaderboard</h2>
-<ol>
-{% for i in lb%}
-<li>{{i.name.name}} - {{i.score}}</li>
-{% endfor %}
-</ol>
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Falling Words Typing Game</title>
+    <link rel="shortcut icon" href="{% static 'games/typing/TemplateData/favicon.ico'%}">
+    <link rel="stylesheet" href="{% static 'games/typing/TemplateData/style.css'%}">
+    <script src="{% static 'games/typing/TemplateData/UnityProgress.js'%}"></script> 
+    <script src="{% static 'games/typing/Build/UnityLoader.js'%}"></script>
+    <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'games/typing/Build/ob-type.json'%}", {onProgress: UnityProgress});
+    </script>
+    <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+       
+
+        function sendPost(score){
+            var data = new URLSearchParams("score="+score)
+            fetch("http://127.0.0.1:8000/flappy/",{
+                method: 'POST',
+                credentials: 'same-origin',
+                headers:{
+                        // 'Accept': 'application/json',
+                         'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+                         'X-CSRFToken': csrftoken,
+                        },
+                body : data
+            }
+            
+            ).then(response => {
+                alert('POST successfull')
+            
+            })
+            .catch(err => console.log(err))
+        }
+        
+    </script>
+  </head>
+  <body>
+    <div class="webgl-content">
+      <div id="unityContainer" style="width: 960px; height: 600px"></div>
+      <div class="footer">
+        <div class="webgl-logo"></div>
+        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+        <div class="title">Falling Words Typing Game</div>
+      </div>
+    </div>
+  </body>
+</html>

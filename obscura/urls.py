@@ -36,5 +36,6 @@ urlpatterns = [
     path('logout/',logout,name='Logout'),
     path('leaderboard/', leaderboardPage, name='LeaderBoard'),
     path('instructions/', instructionPage, name = 'Instructions'),
-    path('galleryview/<nodeNumber>', galleryView, name='GalleryView')
+    path('galleryview/<nodeNumber>', galleryView, name='GalleryView'),
+    path('base/',baseView,name='BaseView')
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
