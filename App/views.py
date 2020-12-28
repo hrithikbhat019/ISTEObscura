@@ -142,6 +142,7 @@ def question(request, diff, node):
         'op3':'',
         'op4':''
     }
+    scoreDiff = 50
     nameUser = request.session['user']
     objUser = User.objects.get(name = nameUser)
     objNode = Node.objects.get(name = objUser, nodeNumber = str(node))
@@ -178,17 +179,14 @@ def question(request, diff, node):
             flag = 0
             if objNode.score == 0:
                 flag = 1
-            if int(diff) == 1:
-                objNode.score = 50
-            elif int(diff) == 2:
-                objNode.score = 100
-            elif int(diff) == 3:
-                objNode.score = 150
+            objNode.score = scoreDiff * int(diff)
             objNode.save()
             objUser.score += objNode.score
             objUser.save()
         else:
-            context['msg'] = 'You have answered the question wrong! Come back later and try again!' 
+            objUser.score -= int((scoreDiff * int(diff))/3)
+            objUser.save()
+            context['msg'] = 'You have answered the question wrong! Subtracting ' + str(int((scoreDiff * int(diff))/3)) + ' from total score! Come back later and try again!' 
 
 
 
