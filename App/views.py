@@ -216,7 +216,7 @@ def brickbreaker(request):
 
 @user_log_in_required
 def flappy(request):
-    #3x score
+    #10x score
     if request.method == 'GET':
         obj = lboardGames(2)
         return render(request, "obscura/games/flappy.html",{'lb':obj})
@@ -224,7 +224,7 @@ def flappy(request):
     elif request.method == 'POST':
         print('I am in flappy bird')
         scorePost = int(request.POST.get('score').strip())
-        normalised_score = 3*score
+        normalised_score = 10*scorePost
         print(normalised_score)
         #print(score)
         #print(request.POST)
@@ -334,10 +334,10 @@ def registrationPage(request):
 
 #leaderboard for games
 def lboardGames(id):
-    obj = Game.objects.filter(gameId=id).order_by('-score','name')[:6]
+    obj = Game.objects.filter(gameId=id).order_by('-score','name')[:11]
     return obj
 
 #leaderboard for entire users
 def lboard():
-    obj = User.objects.order_by('-score', 'name')[:6]
+    obj = User.objects.order_by('-score', 'name')[:11]
     return obj

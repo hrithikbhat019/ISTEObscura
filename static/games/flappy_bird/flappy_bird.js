@@ -218,7 +218,7 @@
                 }
                 
                 ).then(response => {
-                    alert('POST successfull')
+                    console.log("Flappy Bird POST succesful!!!");
                 
                 })
                 .catch(err => console.log(err))
