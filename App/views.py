@@ -201,7 +201,7 @@ def brickbreaker(request):
         #+2 for each brick
         scorePost = int(request.POST.get('score').strip())
         #print(request.POST)
-        print(scorePost)
+        #print(scorePost)
         name = request.session['user']
         objUser = User.objects.get(name = name)
         obj = Game.objects.get(name = objUser, gameId = 1)
@@ -285,11 +285,11 @@ def typing(request):
     #score as is
     if request.method == 'GET':
         obj = lboardGames(5)
-        print(obj)
+        #print(obj)
         return render(request, "obscura/games/typing.html", {'lb':obj})
     elif request.method == 'POST':
         scorePost = int(request.POST.get('score').strip())
-        print(scorePost)
+        #print(scorePost)
         #print(request.POST)
         name = request.session['user']
         objUser = User.objects.get(name = name)
