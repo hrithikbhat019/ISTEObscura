@@ -2,70 +2,140 @@
 {% load static %}
 
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Brickbreaker</title>
-    <link rel="shortcut icon" href="{% static 'games/brickbreaker/TemplateData/favicon.ico'%}"> 
-    <link rel="stylesheet" href="{% static 'games/brickbreaker/TemplateData/style.css'%}">
-    <script src="{% static 'games/brickbreaker/TemplateData/UnityProgress.js'%}"></script>
-    <script src="{% static 'games/brickbreaker/Build/UnityLoader.js'%}"></script>
-    <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'games/brickbreaker/Build/Bbmain.json'%}", {onProgress: UnityProgress});
-    </script>
-    <script>
-        function getCookie(name) {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/cover.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>ISTE Obscura brickbreaker</title>
+  <link rel="icon" type="image/png" href="{% static '/images/logobng.png' %}">
+  <link rel="stylesheet" href="{% static 'games/brickbreaker/TemplateData/style.css'%}">
+  <script src="{% static 'games/brickbreaker/TemplateData/UnityProgress.js'%}"></script>
+  <script src="{% static 'games/brickbreaker/Build/UnityLoader.js'%}"></script>
+  <script>
+    var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'games/brickbreaker/Build/Bbmain.json'%}", { onProgress: UnityProgress });
+  </script>
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
         }
-        var csrftoken = getCookie('csrftoken');
+      }
+      return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
 
-       
 
-        function sendPost(score){
 
-            console.log('Im being called by unity')
-            var data = new URLSearchParams("score="+score)
-            fetch("http://127.0.0.1:8000/brickbreaker/",{
-                method: 'POST',
-                credentials: 'same-origin',
-                headers:{
-                        // 'Accept': 'application/json',
-                         'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
-                         'X-CSRFToken': csrftoken,
-                        },
-                body : data
-            }
-            
-            ).then(response => {
-                console.log(response)
-                console.log('POST successfull')
-            
-            })
-            .catch(err => console.log(err))
-        }
-        
-    </script>
-  </head>
-  <body>
-    <div class="webgl-content">
-      <div id="unityContainer" style="width: 960px; height: 600px"></div>
+    function sendPost(score) {
+
+      console.log('Im being called by unity')
+      var data = new URLSearchParams("score=" + score)
+      fetch("http://127.0.0.1:8000/brickbreaker/", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          // 'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+          'X-CSRFToken': csrftoken,
+        },
+        body: data
+      }
+
+      ).then(response => {
+        console.log(response)
+        console.log('POST successfull')
+
+      })
+        .catch(err => console.log(err))
+    }
+
+  </script>
+</head>
+
+<body>
+  <script src="https://kit.fontawesome.com/0a3d56d8b5.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <div class="navbar">
+    <nav class="transparent z-depth-0">
+      <a style="padding-left: 1%;" href="{% url 'Home' %}"><button
+          class="waves-effect waves-light btn-large center deep-orange darken-4">Go back</button></a>
+      <a class="brand-logo center">
+        <img width="75" src="{% static '/images/logobng.png' %}">
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="https://iste.nitk.ac.in/">About Us</a></li>
+      </ul>
+
+    </nav>
+  </div>
+  <div class="center">
+    <h2>Brickbreaker</h2>
+  </div>
+
+  <div style="display: inline-block;">
+    <div style="width: 15vw;float: left;height: 40.625vw;">
+      <div class="center">
+        <h4>Instructions</h4>
+        <hr style="margin-right: 5%;margin-left: 5%;" color="grey">
+        <h5 class="grey-text">Give instructions here</h5>
+      </div>
+    </div>
+
+    <div class="webgl-content" style="width: 65vw; height: 40.625vw; padding-top: 9.5%;">
+      <div id="unityContainer" style="width: 65vw; height: 40.625vw"></div>
       <div class="footer">
         <div class="webgl-logo"></div>
         <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
         <div class="title">Brickbreaker</div>
       </div>
     </div>
-  </body>
+    <div style="width: 15vw;float: right;height: 40.625vw;">
+      <h4 class="center">Leaderboard</h4>
+      <hr style="margin-right: 5%;margin-left: 5%;" color="grey">
+        {% for i in lb %}
+        {% if forloop.counter0 %}
+        <h6 class="center grey-text">{{i.name.name}} | {{i.score}}</h6>
+        {% else %}
+        <h5 class="center">{{i.name.name}} | {{i.score}}</h5>
+        {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+
+  <footer style="padding-top: 5%;">
+
+    <div class="row center">
+
+      <a href='https://www.facebook.com/istenitk/' target="_blank">
+        <i class="center fa fa-facebook-square fa-2x white-text"></i>
+      </a>
+      <a href='https://www.instagram.com/istenitk/' target="_blank">
+        <i class="center fa fa-instagram fa-2x white-text"></i>
+      </a>
+      <a href='https://www.youtube.com/c/istenitk' target="_blank">
+        <i class="center fa fa-youtube-play fa-2x white-text"></i>
+      </a>
+      <a href='https://www.linkedin.com/company/indian-society-for-technical-education-nitk-chapter/?originalSubdomain=in'
+        target="_blank">
+        <i class="center fa fa-linkedin fa-2x white-text"></i>
+      </a>
+    </div>
+    <div class="center">
+      Made with ❤️ by ISTE Crypt
+    </div>
+  </footer>
+
+</body>
+
 </html>

@@ -75,7 +75,7 @@ def loginPage(request):
             return redirect('Home')
         else:
             messages.error(request,'Invalid login credential! Please enter a valid username and password')
-            return render(request, "obscura/login.html", {})
+            return render(request, "obscura/login.html", {'msg':'Invalid login credentials! Please try again.'})
     else:
         return render(request,"obscura/login.html",{})
 
@@ -105,14 +105,14 @@ def registerPage(request):
         obj = User.objects.filter(name=name)
         if len(obj)==1:
             messages.error(request,'User already exists!')
-            return render(request, "obscura/register.html", {'msg':'User already exists. Please choose another username.'})
+            return render(request, "obscura/register.html", {'msg':'User already exists! Please choose another username.'})
         else:
             obj = User.objects.create(name=name, pwd=pwd)
             obj.save()
             createObjects(obj)
             messages.success(request,"Registered Successfully!")
             #print('user created!')
-            return redirect('Login')
+            return redirect('Cover')
 
 @user_log_in_required
 def homePage(request):
