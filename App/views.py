@@ -201,7 +201,7 @@ def brickbreaker(request):
         #+2 for each brick
         scorePost = int(request.POST.get('score').strip())
         #print(request.POST)
-        #print(scorePost)
+        print(scorePost)
         name = request.session['user']
         objUser = User.objects.get(name = name)
         obj = Game.objects.get(name = objUser, gameId = 1)
