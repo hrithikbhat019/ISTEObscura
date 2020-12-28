@@ -6,7 +6,7 @@
             var started = false; 
             var startJump = false; // Has the jump started?
 
-            var jumpAmount = 120; // How high is the jump?
+            var jumpAmount = 95; // How high is the jump?
             var jumpTime = 266;
 
             var dead = false; // is the bird dead?
@@ -186,19 +186,24 @@
                         .call(diveBird) // change bird to diving position
                         .to({y:ground.y - 30}, (h - (bird.y+200))/1.5, createjs.Ease.linear); //drop to the bedrock
                 createjs.Tween.get(stage).to({alpha:0}, 100).to({alpha:1}, 100)
-                start = new createjs.Bitmap(loader.getResult("start"));
-                start.alpha = 0
+                //start = new createjs.Bitmap(loader.getResult("start"));
+                /*var h = document.createElement("h3");
+                var t = document.createTextNode("\nRefresh to save score");
+                h.appendChild(t);
+                document.body.appendChild(h);
+                window.scrollTo(0,document.body.scrollHeight);*/
+                /*start.alpha = 0
                 start.x = w/2 - start.image.width/2
                 start.y = h/2 - start.image.height/2 - 150
-                share = new createjs.Bitmap(loader.getResult("share"));
+                /*share = new createjs.Bitmap(loader.getResult("share"));
                 share.alpha = 0
                 share.x = w/2 - share.image.width/2
-                share.y = h/2 - share.image.height/2 - 50
+                share.y = h/2 - share.image.height/2 - 50*/
                 
-                stage.addChild(start)
-                stage.addChild(share)
-                createjs.Tween.get(start).to({alpha:1, y: start.y + 50}, 400, createjs.Ease.sineIn).call(addClickToStart)
-                createjs.Tween.get(share).to({alpha:1, y: share.y + 50}, 400, createjs.Ease.sineIn).call(addClickToStart)
+                //stage.addChild(start)
+                //stage.addChild(share)
+                //createjs.Tween.get(start).to({alpha:1, y: start.y + 50}, 400, createjs.Ease.sineIn).call(addClickToStart)
+                //createjs.Tween.get(share).to({alpha:1, y: share.y + 50}, 400, createjs.Ease.sineIn).call(addClickToStart)
 
                 var data = new URLSearchParams("score="+counter.text)
                 fetch("http://127.0.0.1:8000/flappy/",{

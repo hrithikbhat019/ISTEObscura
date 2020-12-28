@@ -37,7 +37,7 @@
 
             console.log('Im being called by unity')
             var data = new URLSearchParams("score="+score)
-            fetch("http://127.0.0.1:8000/flappy/",{
+            fetch("http://127.0.0.1:8000/brickbreaker/",{
                 method: 'POST',
                 credentials: 'same-origin',
                 headers:{
@@ -49,6 +49,7 @@
             }
             
             ).then(response => {
+                console.log(response)
                 alert('POST successfull')
             
             })

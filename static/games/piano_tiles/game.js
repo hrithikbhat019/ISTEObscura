@@ -140,6 +140,46 @@ function afterRight(index){
     myTiles[index].live = false;
     eachState[index] = false;
 }
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+
+
+function sendPost(score){
+    var data = new URLSearchParams("score="+score)
+    fetch("http://127.0.0.1:8000/pianotiles/",{
+        method: 'POST',
+        credentials: 'same-origin',
+        headers:{
+                // 'Accept': 'application/json',
+                 'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+                 'X-CSRFToken': csrftoken,
+                },
+        body : data
+    }
+    
+    ).then(response => {
+        return response
+    
+    })
+    .catch(err => alert('Error'))
+}
+
 function upDate(){//check keyCode whether correct
     var i;
 
@@ -183,22 +223,39 @@ function upDate(){//check keyCode whether correct
                 }
             }
             if(myTiles[i].y > 470){
-                context.clearRect(myTiles[i].x,myTiles[i].y,70,120);
-                context.fillStyle = "rgba(245,13,13,0.8)";
-                context.fillRect(myTiles[i].x,myTiles[i].y,70,120);
-                myTiles[i].live = false;
-                eachState[i] = false;
-                document.getElementById('music').pause();
-                window.clearInterval(intervalTmp);
-                window.clearInterval(geneTmp);
-                content.innerHTML = "GG";
-                alert('GameOver')
+
+                sendPost(myScore).then(response => {
+                    console.log(response)
+                    alert('Game over')
+                    context.clearRect(myTiles[i].x,myTiles[i].y,70,120);
+                    context.fillStyle = "rgba(245,13,13,0.8)";
+                    context.fillRect(myTiles[i].x,myTiles[i].y,70,120);
+                    myTiles[i].live = false;
+                    eachState[i] = false;
+                    document.getElementById('music').pause();
+                    window.clearInterval(intervalTmp);
+                    window.clearInterval(geneTmp);
+                    content.innerHTML = "GG";
+                   
+                })
+                .catch(er => {
+                    alert('Error')
+                   
+                })
+
+                
+
+                //alert('GameOver')
+                
                 // Put fetch call here
             }
         }
         else{//not alive
-
+           alert('You are dead')
+           break;
         }
     }
 }
+
+
  

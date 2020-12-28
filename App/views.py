@@ -193,10 +193,12 @@ def question(request, diff, node):
 def brickbreaker(request):
     objLBoard = lboardGames(1)
     if request.method == 'GET':
-        return render(request,"obscura/games/br2.html", {'lb':objLBoard})
+        return render(request,"obscura/games/br2.html", {'lb':objLBoard})# br2 is the new one ,brickbreaker is the old html
     elif request.method == 'POST':
         #+2 for each brick
         scorePost = int(request.POST.get('score').strip())
+        #print(request.POST)
+        #print(scorePost)
         name = request.session['user']
         objUser = User.objects.get(name = name)
         obj = Game.objects.get(name = objUser, gameId = 1)
@@ -217,8 +219,10 @@ def flappy(request):
         return render(request, "obscura/games/flappy.html",{'lb':obj})
 
     elif request.method == 'POST':
-        score = int(request.POST.get('score').strip())
+        print('I am in flappy bird')
+        scorePost = int(request.POST.get('score').strip())
         normalised_score = 3*score
+        print(normalised_score)
         #print(score)
         #print(request.POST)
         name = request.session['user']
@@ -242,7 +246,7 @@ def pianotiles(request):
         return render(request, "obscura/games/pianotiles.html", {'lb':obj})
     elif request.method == 'POST':
         scorePost = int(request.POST.get('score').strip())
-        #print(score)
+        print(scorePost)
         #print(request.POST)
         name = request.session['user']
         objUser = User.objects.get(name = name)
@@ -260,7 +264,7 @@ def twotho(request):
         obj = lboardGames(4)
         return render(request, "obscura/games/twotho.html", {'lb':obj})
     elif request.method == 'POST':
-        score = int(request.POST.get('score').strip())
+        scorePost = int(request.POST.get('score').strip())
         #print(score)
         #print(request.POST)
         name = request.session['user']
@@ -282,7 +286,7 @@ def typing(request):
         return render(request, "obscura/games/typing.html", {'lb':obj})
     elif request.method == 'POST':
         scorePost = int(request.POST.get('score').strip())
-        #print(score)
+        print(scorePost)
         #print(request.POST)
         name = request.session['user']
         objUser = User.objects.get(name = name)
@@ -292,6 +296,7 @@ def typing(request):
             objUser.save()
             obj.score = scorePost
             obj.save()
+
             return HttpResponse(status = 201)
 
 def baseView(request):

@@ -11,7 +11,7 @@
     <script src="{% static 'games/typing/TemplateData/UnityProgress.js'%}"></script> 
     <script src="{% static 'games/typing/Build/UnityLoader.js'%}"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'games/typing/Build/ob-type.json'%}", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "{% static 'games/typing/Build/Type-Final.json'%}", {onProgress: UnityProgress});
     </script>
     <script>
         function getCookie(name) {
@@ -35,7 +35,7 @@
 
         function sendPost(score){
             var data = new URLSearchParams("score="+score)
-            fetch("http://127.0.0.1:8000/flappy/",{
+            fetch("http://127.0.0.1:8000/typing/",{
                 method: 'POST',
                 credentials: 'same-origin',
                 headers:{
