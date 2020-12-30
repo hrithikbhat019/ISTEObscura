@@ -1,10 +1,285 @@
-<h1>
-    2048
-</h1>
+{% load static %}
 
-<h2>Leaderboard</h2>
-<ol>
-{% for i in lb%}
-<li>{{i.name.name}} - {{i.score}}</li>
-{% endfor %}
-</ol>
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/cover.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>ISTE Obscura Snake</title>
+  <link rel="icon" type="image/png" href="{% static '/images/logobng.png' %}">
+  <style>
+    canvas {
+      border: 1px solid white;
+    }
+  </style>
+  <script>
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+
+
+    function sendPost(score) {
+      var data = new URLSearchParams("score=" + score)
+      fetch("http://127.0.0.1:8000/snake/", {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          // 'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest', //Necessary to work with request.is_ajax()
+          'X-CSRFToken': csrftoken,
+        },
+        body: data
+      }
+
+      ).then(response => {
+        console.log('Typing POST successful!!!')
+
+      })
+        .catch(err => console.log(err))
+    }
+
+  </script>
+</head>
+
+<body>
+  <script src="https://kit.fontawesome.com/0a3d56d8b5.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <div class="navbar">
+    <nav class="transparent z-depth-0">
+      <a style="padding-left: 1%;" href="{% url 'Home' %}"><button
+          class="waves-effect waves-light btn-large center deep-orange darken-4">Go back</button></a>
+      <a class="brand-logo center">
+        <img width="75" src="{% static '/images/logobng.png' %}">
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="https://iste.nitk.ac.in/">About Us</a></li>
+      </ul>
+
+    </nav>
+  </div>
+  <div class="center">
+    <h2>Snek</h2>
+  </div>
+
+<div style="display: inline-block;">
+    <div style="width: 23vw;float: left;height: 40.625vw;">
+      <div>
+        <h4 class="center">Instructions</h4>
+        <hr class="center" style="margin-right: 5%;margin-left: 5%;" color="grey">
+        <h6 class="grey-text">
+        <ol>
+          <li>Use "WASD" to control Snek<br><br></li>
+          <li>Snek needs to eat, eat to gain points.<br><br></li>
+          <li>The game stops when Snek bites it's tail. Ouch!<br><br></li>
+          <li>Lead Snek to survival!<br><br></li>
+          <lI>To play again refresh or revisit Snek again. Snek will surely be happy!</lI>
+        </ol>
+      </h6>
+      </div>
+    </div>
+
+    <div class="center" style="width: 50vw; height: 40.625vw;padding-top: 3%;margin-left: 25%;">
+        <div>
+            <canvas width="400" height="400" id="game"></canvas>
+            <h6 class="grey-text">Score<h5><div id="score" class="white-text">0</div></h5></h6>
+        </div>
+    </div>
+
+
+    <div style="width: 23vw;float: right;height: 40.625vw;margin-top: -40vw;">
+      <h4 class="center">Leaderboard</h4>
+      <hr style="margin-right: 5%;margin-left: 5%;" color="grey">
+        {% for i in lb %}
+        {% if forloop.counter0 %}
+        <h6 class="center grey-text">{{i.name.name}} | {{i.score}}</h6>
+        {% else %}
+        <h5 class="center">{{i.name.name}} | {{i.score}}</h5>
+        {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+
+  <footer style="margin-top: -6%;">
+
+    <div class="row center">
+
+      <a href='https://www.facebook.com/istenitk/' target="_blank">
+        <i class="center fa fa-facebook-square fa-2x white-text"></i>
+      </a>
+      <a href='https://www.instagram.com/istenitk/' target="_blank">
+        <i class="center fa fa-instagram fa-2x white-text"></i>
+      </a>
+      <a href='https://www.youtube.com/c/istenitk' target="_blank">
+        <i class="center fa fa-youtube-play fa-2x white-text"></i>
+      </a>
+      <a href='https://www.linkedin.com/company/indian-society-for-technical-education-nitk-chapter/?originalSubdomain=in'
+        target="_blank">
+        <i class="center fa fa-linkedin fa-2x white-text"></i>
+      </a>
+    </div>
+    <div class="center">
+      Made with ❤️ by ISTE Crypt
+    </div>
+  </footer>
+
+  <script>
+
+    var canvas = document.getElementById('game');
+    var context = canvas.getContext('2d');
+    var id = 0;
+    var grid = 16;
+    var count = 0;
+
+    var snake = {
+      x: 160,
+      y: 160,
+
+      // snake velocity. moves one grid length every frame in either the x or y direction
+      dx: grid,
+      dy: 0,
+
+      // keep track of all grids the snake body occupies
+      cells: [],
+
+      // length of the snake. grows when eating an apple
+      maxCells: 4
+    };
+    var apple = {
+      x: 320,
+      y: 320
+    };
+
+    // get random whole numbers in a specific range
+    // @see https://stackoverflow.com/a/1527820/2124254
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    // game loop
+    function loop() {
+      id = requestAnimationFrame(loop);
+
+      // slow game loop to 15 fps instead of 60 (60/15 = 4)
+      if (++count < 4) {
+        return;
+      }
+
+      count = 0;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // move snake by it's velocity
+      snake.x += snake.dx;
+      snake.y += snake.dy;
+
+      // wrap snake position horizontally on edge of screen
+      if (snake.x < 0) {
+        snake.x = canvas.width - grid;
+      }
+      else if (snake.x >= canvas.width) {
+        snake.x = 0;
+      }
+
+      // wrap snake position vertically on edge of screen
+      if (snake.y < 0) {
+        snake.y = canvas.height - grid;
+      }
+      else if (snake.y >= canvas.height) {
+        snake.y = 0;
+      }
+
+      // keep track of where snake has been. front of the array is always the head
+      snake.cells.unshift({ x: snake.x, y: snake.y });
+
+      // remove cells as we move away from them
+      if (snake.cells.length > snake.maxCells) {
+        snake.cells.pop();
+      }
+
+      // draw apple
+      context.fillStyle = 'red';
+      context.fillRect(apple.x, apple.y, grid - 1, grid - 1);
+
+      // draw snake one cell at a time
+      context.fillStyle = 'green';
+      snake.cells.forEach(function (cell, index) {
+
+        // drawing 1 px smaller than the grid creates a grid effect in the snake body so you can see how long it is
+        context.fillRect(cell.x, cell.y, grid - 1, grid - 1);
+
+        // snake ate apple
+        if (cell.x === apple.x && cell.y === apple.y) {
+          snake.maxCells++;
+          document.getElementById("score").innerHTML = snake.maxCells - 4;
+
+          // canvas is 400x400 which is 25x25 grids
+          apple.x = getRandomInt(0, 25) * grid;
+          apple.y = getRandomInt(0, 25) * grid;
+        }
+
+        // check collision with all cells after this one (modified bubble sort)
+        for (var i = index + 1; i < snake.cells.length; i++) {
+
+          // snake occupies same space as a body part. reset game
+          if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+            var score = snake.maxCells - 4;
+            console.log(score);
+            sendPost(score);
+            cancelAnimationFrame(id);
+          }
+        }
+      });
+    }
+
+    // listen to keyboard events to move the snake
+    document.addEventListener('keydown', function (e) {
+      // prevent snake from backtracking on itself by checking that it's
+      // not already moving on the same axis (pressing left while moving
+      // left won't do anything, and pressing right while moving left
+      // shouldn't let you collide with your own body)
+
+      // a
+      if (e.which === 65 && snake.dx === 0) {
+        snake.dx = -grid;
+        snake.dy = 0;
+      }
+      // w
+      else if (e.which === 87 && snake.dy === 0) {
+        snake.dy = -grid;
+        snake.dx = 0;
+      }
+      // d
+      else if (e.which === 68 && snake.dx === 0) {
+        snake.dx = grid;
+        snake.dy = 0;
+      }
+      // s
+      else if (e.which === 83 && snake.dy === 0) {
+        snake.dy = grid;
+        snake.dx = 0;
+      }
+    });
+
+    // start the game
+    requestAnimationFrame(loop);
+  </script>
+</body>
+
+</html>

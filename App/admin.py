@@ -4,11 +4,12 @@ from .models import Game, User, Question, Node
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'pwd', 'score', 'rollNo')
-    ordering = ('-score',)
+    ordering = ('-score', 'name')
 
 class GameAdmin(admin.ModelAdmin):
     list_display = ('name', 'gameId', 'score')
     list_filter = ('gameId',)
+    ordering = ('-score','name')
     
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ('quest', 'difficulty', 'ans', 'op1', 'op2', 'op3', 'op4')

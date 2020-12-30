@@ -11,7 +11,7 @@ class User(models.Model):
 class Game(models.Model): #For any game, not implemented rn
     name = models.ForeignKey(User, null = False, default = '',on_delete = models.SET_DEFAULT)
     score = models.IntegerField(default=0)
-    choice = [('1','brickbreaker'), ('2', 'flappy'), ('3', 'pianotiles'), ('4', 'twotho'), ('5', 'typing')]
+    choice = [('1','brickbreaker'), ('2', 'flappy'), ('3', 'pianotiles'), ('4', 'snake'), ('5', 'typing')]
     gameId = models.CharField(max_length = 1, choices = choice, default = 1)
 
 class Question(models.Model):

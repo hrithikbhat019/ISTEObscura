@@ -269,7 +269,7 @@ def twotho(request):
         return render(request, "obscura/games/twotho.html", {'lb':obj})
     elif request.method == 'POST':
         scorePost = int(request.POST.get('score').strip())
-        #print(score)
+        print(scorePost)
         #print(request.POST)
         name = request.session['user']
         objUser = User.objects.get(name = name)
