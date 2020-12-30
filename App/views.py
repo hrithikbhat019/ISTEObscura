@@ -102,12 +102,13 @@ def registerPage(request):
     else:
         name = request.POST.get('name').strip()
         pwd = request.POST.get('pwd').strip()
+        rollNo = request.POST.get('rollNo').strip()
         obj = User.objects.filter(name=name)
         if len(obj)==1:
             messages.error(request,'User already exists!')
             return render(request, "obscura/register.html", {'msg':'User already exists! Please choose another username.'})
         else:
-            obj = User.objects.create(name=name, pwd=pwd)
+            obj = User.objects.create(name=name, pwd=pwd, rollNo=rollNo)
             obj.save()
             createObjects(obj)
             messages.success(request,"Registered Successfully!")

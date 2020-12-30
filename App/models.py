@@ -6,6 +6,7 @@ class User(models.Model):
     name = models.CharField(blank=False,null=False,max_length=40)
     pwd = models.CharField(blank=False,null=False,max_length=100)
     score = models.IntegerField(default=0)
+    rollNo = models.CharField(blank=True,null=True,max_length=10)
 
 class Game(models.Model): #For any game, not implemented rn
     name = models.ForeignKey(User, null = False, default = '',on_delete = models.SET_DEFAULT)
