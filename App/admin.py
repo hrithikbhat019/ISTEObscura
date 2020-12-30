@@ -3,7 +3,8 @@ from django.contrib import admin
 from .models import Game, User, Question, Node
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'pwd', 'score')
+    list_display = ('name', 'pwd', 'score', 'rollNo')
+    ordering = ('-score',)
 
 class GameAdmin(admin.ModelAdmin):
     list_display = ('name', 'gameId', 'score')
