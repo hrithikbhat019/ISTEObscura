@@ -145,6 +145,7 @@ def question(request, diff, node):
     }
     scoreDiff = 50
     nameUser = request.session['user']
+    context['name'] = nameUser
     objUser = User.objects.get(name = nameUser)
     objNode = Node.objects.get(name = objUser, nodeNumber = str(node))
     objNode.visited = True
@@ -197,7 +198,8 @@ def question(request, diff, node):
 def brickbreaker(request):
     objLBoard = lboardGames(1)
     if request.method == 'GET':
-        return render(request,"obscura/games/br2.html", {'lb':objLBoard})# br2 is the new one ,brickbreaker is the old html
+        nameSession = request.session['user']
+        return render(request,"obscura/games/br2.html", {'lb':objLBoard,'name':nameSession})# br2 is the new one ,brickbreaker is the old html
     elif request.method == 'POST':
         #+2 for each brick
         scorePost = int(request.POST.get('score').strip())
@@ -220,7 +222,8 @@ def flappy(request):
     #10x score
     if request.method == 'GET':
         obj = lboardGames(2)
-        return render(request, "obscura/games/flappy.html",{'lb':obj})
+        nameSession = request.session['user']
+        return render(request, "obscura/games/flappy.html",{'lb':obj, 'name':nameSession})
 
     elif request.method == 'POST':
         print('I am in flappy bird')
@@ -247,7 +250,8 @@ def pianotiles(request):
     # score as is
     if request.method == 'GET':
         obj = lboardGames(3)
-        return render(request, "obscura/games/pianotiles.html", {'lb':obj})
+        nameSession = request.session['user']
+        return render(request, "obscura/games/pianotiles.html", {'lb':obj,'name':nameSession})
     elif request.method == 'POST':
         scorePost = int(request.POST.get('score').strip())
         print(scorePost)
@@ -266,7 +270,8 @@ def pianotiles(request):
 def twotho(request):
     if request.method == 'GET':
         obj = lboardGames(4)
-        return render(request, "obscura/games/twotho.html", {'lb':obj})
+        nameSession = request.session['user']
+        return render(request, "obscura/games/twotho.html", {'lb':obj,'name':nameSession})
     elif request.method == 'POST':
         scorePost = int(request.POST.get('score').strip())
         print(scorePost)
@@ -287,7 +292,8 @@ def typing(request):
     if request.method == 'GET':
         obj = lboardGames(5)
         #print(obj)
-        return render(request, "obscura/games/typing.html", {'lb':obj})
+        nameSession = request.session['user']
+        return render(request, "obscura/games/typing.html", {'lb':obj, 'name':nameSession})
     elif request.method == 'POST':
         scorePost = int(request.POST.get('score').strip())
         #print(scorePost)
